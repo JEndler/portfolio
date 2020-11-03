@@ -1,21 +1,179 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block body_class %}template-homepage{% endblock %}
-
-{% block extra_css %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
-{% endblock extra_css %}
+{% load wagtailcore_tags %}
 
 {% block content %}
+  <div class="content">
+                <canvas class="scene scene--full" id="scene" style="width: 100%; height: 100vh;"></canvas>
+                <script type="x-shader/x-vertex" id="wrapVertexShader">
+                    attribute float size;
+                    attribute vec3 color;
+                    varying vec3 vColor;
+                    void main() {
+                        vColor = color;
+                        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+                        gl_PointSize = size * ( 350.0 / - mvPosition.z );
+                        gl_Position = projectionMatrix * mvPosition;
+                    }
+                </script>
+                <script type="x-shader/x-fragment" id="wrapFragmentShader">
+                    varying vec3 vColor;
+                    uniform sampler2D texture;
+                    void main(){
+                        vec4 textureColor = texture2D( texture, gl_PointCoord );
+                        if ( textureColor.a < 0.3 ) discard;
+                        vec4 color = vec4(vColor.xyz, 1.0) * textureColor;
+                        gl_FragColor = color;
+                    }
+                </script>
+            </div>
+        </main>
+        <script src="{% static '/js/demo.js' %}"></script>
+        <script src="{% static '/js/three.min.js' %}"></script>
+        <script src="{% static '/js/TweenMax.min.js' %}"></script>
+        <script src="{% static '/js/demo1.js' %}"></script>
 
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-{% include 'home/welcome_page.html' %}
+  <header class="header" role="banner" id="top">
+    <div class="header__text-box row">
+      <div class="header__text">
+        <h1 class="heading-primary">
+          <span>{{ page.headline }}</span>
+        </h1>
+        <!-- Put a small paragraph about yourself -->
+        <p>{{ page.subheadline }}</p>
+        <a href="#contact" class="btn btn--pink">Get in touch</a>
+      </div>
+    </div>
+  </header>
 
-{% endblock content %}
+  <main role="main">
+
+    <!-- ***** Work ***** -->
+
+    <section class="work" id="work">
+      <div class="row">
+        <h2>My Projects</h2>
+        <div class="work__boxes">
+
+          <!-- Each div with the work__box class is a project. -->
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Hearthstone AI</h3>
+              <p>
+                A Monte-Carlo Based Hearthstone Bot.
+              </p>
+              <ul class="work__list">
+                <li>Python</li>
+                <li>Webscraping</li>
+                <li>Simulation</li>
+                <li>Machine-Learning</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://www.jakobendler.eu" target="_blank" class="link__text">
+                  Visit Project <span>&rarr;</span>
+                </a>
+                <a href="https://github.com/JEndler/hearthstoneAI" title="View Source Code" target="_blank">
+                  <img src="{% static '/img/github.svg' %}" class="work__code" alt="GitHub">
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="{% static '/img/project-1.jpg' %}" class="work__image" alt="Project 1" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>S2S-Homepage</h3>
+              <p>
+                A fully responsive Website for the University Group Science 2 Startup Bonn e.V.
+              </p>
+              <ul class="work__list">
+                <li>HTML</li>
+                <li>Flask</li>
+                <li>Bootstrap</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://www.s2s-bonn.de" class="link__text">
+                  Visit Site <span>&rarr;</span>
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="{% static '/img/project-2.png' %}" class="work__image" alt="Project 1" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>CS:GO Esports Predictions</h3>
+              <p>
+                A Machine-Learning Model trained to predict the Outcome of professional CS:GO Matches.
+              </p>
+              <ul class="work__list">
+                <li>Python</li>
+                <li>Webscraping</li>
+                <li>Pandas</li>
+                <li>Machine Learning</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://csgo.jakobendler.eu" class="link__text">
+                  Visit Site <span>&rarr;</span>
+                </a>
+                <a href="https://github.com/JEndler/csgogamble">
+                  <img src="{% static '/img/github.svg' %}" class="work__code" title="View Source Code" alt="GitHub">
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="{% static '/img/project-3.png' %}" class="work__image" alt="Project 3" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ***** About ***** -->
+
+    <section class="about" id="about">
+      <div class="row">
+        <h2>About Me</h2>
+        <div class="about__content">
+          <div class="about__text">
+            <!-- Replace the below paragraph with info about yourself -->
+            <p>
+              {{ page.about_me_text|richtext }} 
+            </p>
+            <!-- Provide a link to your resume -->
+            <a href="{% static '/documents/Resume-Jakob-Endler.pdf' %}" class="btn">My Resume</a>
+          </div>
+
+          <div class="about__photo-container">
+            <!-- Add a nice photo of yourself -->
+            <img class="about__photo" src="{% static '/img/portrait.png' %}" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ***** Contact ***** -->
+
+  <section class="contact" id="contact">
+    <div class="row">
+      <h2>Get in Touch</h2>
+      <div class="contact__info">
+        <p>
+          {{ page.get_in_touch_text|richtext }}
+        </p>
+        <!-- Replace the email with yours -->
+        <a href="mailto:jakob.endler@hotmail.de" class="btn">jakob.endler@hotmail.de</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
