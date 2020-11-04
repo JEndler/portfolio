@@ -15,5 +15,7 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = 'Jakobs Portfolio'
 
+DEBUG = True
+
 with open('/home/projects/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
