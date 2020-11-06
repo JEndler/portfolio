@@ -83,7 +83,30 @@
             </div>
           </div>
           {% endfor %}
+        </div>
+    <!-- ***** About ***** -->
 
+    <section class="about" id="about">
+      <div class="row">
+        <h2>About Me</h2>
+        <div class="about__content">
+          <div class="about__text">
+            <!-- Replace the below paragraph with info about yourself -->
+            <p>
+              {{ page.about_me_text|richtext }} 
+            </p>
+            <!-- Provide a link to your resume -->
+            <a href="{% static 'documents/Resume-Jakob-Endler.pdf' %}" class="btn">My Resume</a>
+          </div>
+
+          <div class="about__photo-container">
+            <!-- Add a nice photo of yourself -->
+            <img class="about__photo" src="{% static 'img/portrait.png' %}" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- ***** Contact ***** -->
 
