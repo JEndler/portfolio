@@ -57,7 +57,7 @@
 
           <!-- Each div with the work__box class is a project. -->
           {% for project in page.get_children %}
-          <div class="work__box">
+          <div style="display: flex; align-items:center; margin-top: 20px;">
             <div class="work__text">
               <h3>{{ project.title }}</h3>
               <p>
@@ -70,7 +70,7 @@
               </ul>
 
               <div class="work__links">
-                <a href="https://www.{{ project.specific.button_href }}" target="_blank" class="link__text">
+                <a href="https://{{ project.specific.button_href }}" target="_blank" class="link__text">
                   {{ project.specific.button_text }} <span>&rarr;</span>
                 </a>
                 <a href="https://{{ project.specific.github_href }}" title="View Source Code" target="_blank">
@@ -79,7 +79,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              {% image project.specific.big_image original class="work__image" %}
+              {% image project.specific.big_image height-480 class="work__image" %}
             </div>
           </div>
           {% endfor %}
