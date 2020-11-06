@@ -57,7 +57,7 @@
 
           <!-- Each div with the work__box class is a project. -->
           {% for project in page.get_children %}
-          <div style="display: flex; align-items:center;">
+          <div style="display: flex; align-items:center; margin-top: 20px;">
             <div class="work__text">
               <h3>{{ project.title }}</h3>
               <p>
@@ -82,7 +82,6 @@
               {% image project.specific.big_image height-480 class="work__image" %}
             </div>
           </div>
-          <hr>
           {% endfor %}
         </div>
     <!-- ***** About ***** -->
