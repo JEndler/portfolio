@@ -121,7 +121,7 @@ venv.bak/
 /site
 
 /notes
-
+/static
 
 # mypy
 .mypy_cache/
