@@ -1,0 +1,29 @@
+{% load static %}
+
+{% load wagtailcore_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.png' %}" />
+
+  <!-- Put your site title here -->
+  <title>
+    {{ page.title }}
+  </title>
+
+  <meta name="description" content="I’m a Python Geek exploring big data.">
+  <meta name="keywords" content="Jakob Endler Python Big Data Science Flask Pandas Dev Developer" />
+  <link rel="stylesheet" href="{% static '/css/index.css'%}" />
+</head>
+
+<body>
+
+  <!-- ***** Header ***** -->
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
