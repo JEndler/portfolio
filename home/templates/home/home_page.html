@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 {% block content %}
   <div class="content">
                 <canvas class="scene scene--full" id="scene" style="width: 100%; height: 100vh;"></canvas>
@@ -55,110 +56,34 @@
         <div class="work__boxes">
 
           <!-- Each div with the work__box class is a project. -->
-
+          {% for project in page.get_children %}
           <div class="work__box">
             <div class="work__text">
-              <h3>Hearthstone AI</h3>
+              <h3>{{ project.title }}</h3>
               <p>
-                A Monte-Carlo Based Hearthstone Bot.
+                {{ project.specific.subtitle }}
               </p>
               <ul class="work__list">
-                <li>Python</li>
-                <li>Webscraping</li>
-                <li>Simulation</li>
-                <li>Machine-Learning</li>
+                {% for tag in project.specific.tags.all %}
+                  <li>{{ tag }}</li>
+                {% endfor %}
               </ul>
 
               <div class="work__links">
-                <a href="https://www.jakobendler.eu" target="_blank" class="link__text">
-                  Visit Project <span>&rarr;</span>
+                <a href="https://www.{{ project.specific.button_href }}" target="_blank" class="link__text">
+                  {{ project.specific.button_text }} <span>&rarr;</span>
                 </a>
-                <a href="https://github.com/JEndler/hearthstoneAI" title="View Source Code" target="_blank">
+                <a href="https://{{ project.specific.github_href }}" title="View Source Code" target="_blank">
                   <img src="{% static 'img/github.svg' %}" class="work__code" alt="GitHub">
                 </a>
               </div>
             </div>
             <div class="work__image-box">
-              <img src="{% static 'img/project-1.jpg' %}" class="work__image" alt="Project 1" />
+              {% image project.specific.big_image original class="work__image" %}
             </div>
           </div>
+          {% endfor %}
 
-          <div class="work__box">
-            <div class="work__text">
-              <h3>S2S-Homepage</h3>
-              <p>
-                A fully responsive Website for the University Group Science 2 Startup Bonn e.V.
-              </p>
-              <ul class="work__list">
-                <li>HTML</li>
-                <li>Flask</li>
-                <li>Bootstrap</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://www.s2s-bonn.de" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="{% static 'img/project-2.png' %}" class="work__image" alt="Project 1" />
-            </div>
-          </div>
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>CS:GO Esports Predictions</h3>
-              <p>
-                A Machine-Learning Model trained to predict the Outcome of professional CS:GO Matches.
-              </p>
-              <ul class="work__list">
-                <li>Python</li>
-                <li>Webscraping</li>
-                <li>Pandas</li>
-                <li>Machine Learning</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://csgo.jakobendler.eu" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/JEndler/csgogamble">
-                  <img src="{% static 'img/github.svg' %}" class="work__code" title="View Source Code" alt="GitHub">
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="{% static 'img/project-3.png' %}" class="work__image" alt="Project 3" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ***** About ***** -->
-
-    <section class="about" id="about">
-      <div class="row">
-        <h2>About Me</h2>
-        <div class="about__content">
-          <div class="about__text">
-            <!-- Replace the below paragraph with info about yourself -->
-            <p>
-              {{ page.about_me_text|richtext }} 
-            </p>
-            <!-- Provide a link to your resume -->
-            <a href="{% static 'documents/Resume-Jakob-Endler.pdf' %}" class="btn">My Resume</a>
-          </div>
-
-          <div class="about__photo-container">
-            <!-- Add a nice photo of yourself -->
-            <img class="about__photo" src="{% static 'img/portrait.png' %}" alt="" />
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
 
   <!-- ***** Contact ***** -->
 

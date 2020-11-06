@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'home',
     'search',
     'projects',
-
+    'wagtailcodeblock',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -161,3 +161,15 @@ WAGTAIL_SITE_NAME = "portfolio"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+WAGTAIL_CODE_BLOCK_THEME = 'okaidia'
+WAGTAIL_CODE_BLOCK_LANGUAGES = (
+    ('bash', 'Bash/Shell'),
+    ('css', 'CSS'),
+    ('html', 'HTML'),
+    ('javascript', 'Javascript'),
+    ('json', 'JSON'),
+    ('python', 'Python'),
+    ('sql', 'SQL'),
+    ('yaml', 'YAML'),
+)
