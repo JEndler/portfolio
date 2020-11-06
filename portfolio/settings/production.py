@@ -13,6 +13,8 @@ DEBUG = False
 with open('/home/projects/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
